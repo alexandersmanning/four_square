@@ -48,7 +48,13 @@ class Board
 			(0..grid.first.count - 1).each do |col|
 				return true if (1...4).all? do |val|
 					row_v, col_v = row + val, col + val
-					inbounds(row_v, col_v) ?  grid[row_v][col_v] == grid[row][col] : false
+
+					if inbounds(row_v, col_v) && !grid[row_v][col_v].nil?
+						grid[row_v][col_v] == grid[row][col] 
+					else 
+						false 
+					end
+					 
 				end
 			end
 		end
@@ -65,6 +71,10 @@ class Board
 
 		checks.any? { |check| check }
 	end
+
+	def full? 
+		grid.all? { |row| row.count(nil) == 0 }
+	end 
 
 	def display
 		grid.each do |row|

@@ -1,13 +1,14 @@
 class Player
-  attr_reader :name
+  attr_reader :name, :mark
 
-  def initialize(name)
+  def initialize(name, mark)
+    @mark = mark
     @name = name
   end
 
   def get_choice
     begin
-      puts "Please choose a column"
+      puts "#{name.capitalize}, please choose a column"
       input = gets.chomp[/\d+/]
       raise if input.nil? || input.to_i < 1
     rescue

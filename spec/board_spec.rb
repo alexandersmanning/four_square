@@ -12,6 +12,7 @@ describe "Board" do
 	let(:col_4) { [[:b, :r, :b, :r], [:r, :b, :b, :r], [:b, :b, :r, :r], [:b, :b, :r, :r]] }
 	let(:diag_4) { [[:b, :b, :r, :b], [:r, :b, :b, :r], [:b, :r, :b, :r], [:r, :b, :r, :b]] }
 	let(:right_diag) { [[:r, :b, :b, :r], [:r, :b, :r, :r], [:b, :r, :b, :r], [:r, :b, :r, :b]] }
+	let(:full_board) { [[:r, :r], [:b,:b]] }
 
 	before :each do
 		allow(board).to receive(:grid).and_return(grid)
@@ -105,10 +106,17 @@ describe "Board" do
 		it "finds 4 right-diagonal" do
 			allow(board).to receive(:grid).and_return(right_diag)
 			expect(board.win?).to be_truthy
+			expect(empty_board.win?).to be_falsey
 		end
 	end
 
 	describe "#full?" do
+		it "checks if the board is full" do 
+			allow(board).to receive(:grid).and_return(full_board)
+			expect(board.full?).to be_truthy
 
+			allow(board).to receive(:grid).and_return(grid)
+			expect(board.full?).to be_falsey
+		end 
 	end
 end
